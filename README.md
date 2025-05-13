@@ -4,7 +4,6 @@ This Nextflow script is designed to test different properties of a SLURM cluster
 It creates multiple instances of a cluster job based on predefined flavor configurations and executes them on the cluster.
 
 ## Requirements
--------------
 
 To run this workflow, you need:
 
@@ -15,7 +14,6 @@ To run this workflow, you need:
 *   A `/vol/scratch` directory available on all worker nodes
 
 ## Running the Workflow
-------------------------
 
 To run the workflow, clone the repository in a shared directory, navigate to the repository directory in your terminal and execute the following command:
 
@@ -32,7 +30,6 @@ The columns "status" and "hash" are of particular interest. "Status" specifies w
 The workflow can also be executed on the local system by specifying the `--executor 'local'` parameter.
 
 ## Properties Tested
---------------------
 
 If the workflow finishes successfully, it indicates that the cluster has passed the following tests:
 
