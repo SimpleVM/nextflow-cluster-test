@@ -18,7 +18,7 @@ To run this workflow, you need:
 To run the workflow, clone the repository in a shared directory, navigate to the repository directory in your terminal and execute the following command:
 
 ```bash
-NXF_VER=24.10.4 ./nextflow run test.nf -with-trace -profile slurm
+NXF_VER=24.10.4 nextflow run test.nf -with-trace -profile slurm
 ```
 
 The `--trace` option is required to enable detailed logging of the workflow execution. This will provide valuable information for debugging purposes.
@@ -27,7 +27,7 @@ The columns "status" and "hash" are of particular interest. "Status" specifies w
 
 ### Options
 
-The workflow can also be executed on the local system by specifying the `-profile 'local'` parameter.
+The workflow can also be executed on the local system by specifying the `-profile local` parameter.
 
 ## Properties Tested
 
