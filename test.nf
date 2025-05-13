@@ -1,10 +1,7 @@
-// Allow user to overwrite the default 'slurm' executor with a different one
-executor = params.executor?:'slurm'
-
 // Define a list of flavor configurations for the workflow
 flavors = [
     // High-memory, large configuration (230GB RAM, 28 CPUs)
-    [ram: 230, cpus: 28, multiply: 3],
+//    [ram: 230, cpus: 28, multiply: 3],
     // High-memory, medium configuration (113GB RAM, 14 CPUs)
     [ram: 113, cpus: 14, multiply: 10],
     // Medium configuration (29GB RAM, 14 CPUs)
@@ -26,24 +23,21 @@ process testJob {
     container 'quay.io/biocontainers/megahit:1.2.9--h5b5514e_2'
     
     // Tag the process output with flavor details
-    tag "CPUS: ${cpus}, RAM: ${ram}"
+    tag "CPUS: ${cpus}, RAM: ${ram} GB"
     
     // Set the number of CPUs and memory for this process
     cpus "${cpus}"
-    memory "${ram}"
+    memory "${ram} GB"
 
     // Results of each job are not cached
     cache false
     
     // Set a time limit for this process 
-    time '10s'
+    time '120s'
     
     // Configure error handling to finish the workflow on failure
     errorStrategy 'finish'
 
-    // Set executor in case 'slurm' should not be used
-    executor executor
-    
     // Specify a scratch directory for temporary files
     scratch "/vol/scratch"
     
@@ -58,12 +52,11 @@ process testJob {
         // Assign flavor details to local variables
         ram = x.ram
         cpus = x.cpus
-        
         """
         # Sleep for 5 seconds
         sleep 5
         
         # Write flavor details to a file
-        echo "RAM: ${ram} CPUS: ${cpus}" > "${task.id}.txt"
+        echo "RAM: ${ram} CPUS: ${cpus}" > "${ram}_${cpus}.txt"
         """
 }
