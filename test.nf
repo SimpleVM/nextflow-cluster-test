@@ -1,7 +1,7 @@
 // Define a list of flavor configurations for the workflow
 flavors = [
     // High-memory, large configuration (230GB RAM, 28 CPUs)
-//    [ram: 230, cpus: 28, multiply: 3],
+    [ram: 230, cpus: 28, multiply: 3],
     // High-memory, medium configuration (113GB RAM, 14 CPUs)
     [ram: 113, cpus: 14, multiply: 10],
     // Medium configuration (29GB RAM, 14 CPUs)
