@@ -21,13 +21,15 @@ To run the workflow, clone the repository in a shared directory, navigate to the
 NXF_VER=24.10.4 nextflow run test.nf -with-trace -profile slurm
 ```
 
-The `--trace` option is required to enable detailed logging of the workflow execution. This will provide valuable information for debugging purposes.
+The `-with-trace` option is required to enable detailed logging of the workflow execution. This will provide valuable information for debugging purposes.
 In case the workflow fails, look for the job information in the trace*.txt file. Check the Nextflow website for an explanation for all [columns](https://www.nextflow.io/docs/latest/reports.html#trace-file).
 The columns "status" and "hash" are of particular interest. "Status" specifies which jobs have failed, and "hash" specifies where to find the job output in the work directory.
 
 ### Options
 
-The workflow can also be executed on the local system by specifying the `-profile local` parameter.
+* `-profile local`: By specifying `-profile local` the workflow can be executed on the local system.
+
+* `--testRAM`: The workflow uses `stress-ng` to fill up the RAM disk according to the job specifications. 
 
 ## Properties Tested
 

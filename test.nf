@@ -1,3 +1,6 @@
+params.testRAM = false
+
+
 // Define a list of flavor configurations for the workflow
 flavors = [
     // High-memory, large configuration (230GB RAM, 28 CPUs)
@@ -33,7 +36,7 @@ process testJob {
     cache false
     
     // Set a time limit for this process 
-    time '120s'
+    time '160s'
     
     // Configure error handling to finish the workflow on failure
     errorStrategy 'finish'
@@ -52,11 +55,18 @@ process testJob {
         // Assign flavor details to local variables
         ram = x.ram
         cpus = x.cpus
-        """
-        # Sleep for 5 seconds
-        sleep 5
-        
-        # Write flavor details to a file
-        echo "RAM: ${ram} CPUS: ${cpus}" > "${ram}_${cpus}.txt"
-        """
+        if( params?.testRAM ) 
+          """
+          # Fill ram disk
+          stress-ng --vm 1 --vm-bytes "${ram}G" --timeout 90s
+          # Write flavor details to a file
+          echo "RAM: ${ram} CPUS: ${cpus}" > "${ram}_${cpus}.txt"
+          """
+        else
+          """
+          # Sleep for 5 seconds
+          sleep 5
+          # Write flavor details to a file
+          echo "RAM: ${ram} CPUS: ${cpus}" > "${ram}_${cpus}.txt"
+          """
 }
